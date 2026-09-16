@@ -123,3 +123,73 @@ python3 polymarket/rewards.py && python3 polymarket/farming.py
 ```
 
 Analysis, not financial advice. Prices move; re-run before acting on anything.
+
+## Round two: semantics and news
+
+Two questions the structural screens cannot ask — whether prices are consistent
+with *meaning*, and whether they are consistent with *what has happened*.
+
+### The news is already in the prices
+
+Every live story checked on 2026-09-16 had been absorbed, usually within a day:
+
+- **CLARITY Act.** The Senate cloture vote failed on 15 Sep, killing the crypto
+  market-structure bill for 2026. The platform's highest-volume market
+  ($1.56M/day) sits at 0.0645 — having moved −0.09 over the week and
+  **−0.0005 on the day**. It repriced *before and during* the vote, not after.
+- **Saudi East–West pipeline.** Drone strikes from Iraq shut the 4–5M bpd line
+  on 10–11 Sep; oil broke $100. "Restarts by September 30" jumped **+26.5pts
+  to 0.68** on the US Energy Secretary saying repairs were a matter of days.
+- **Oil complex.** Consistent repricing across the board the same day: WTI
+  $110-touch −22.5pts, $115-touch −15.9pts, $100-low +16.5pts.
+
+A first read of the pipeline market looked like a short: Reuters sources put
+repairs at five to six weeks, which lands well past 30 September, against a
+market at 0.68. That read was wrong twice over. The resolution text accepts
+**partial or reduced capacity**, and an earlier 2026 strike on this same
+pipeline was repaired by Aramco to full capacity in about a week. The market
+is defensible; the "obvious" trade was an artifact of reading one number and
+stopping.
+
+Note also what does *not* qualify there: the announcement must come from the
+Saudi government and state the pipeline is **presently operating**. Statements
+that it "will operate soon", or that describe work underway — exactly what the
+US Energy Secretary said, and what moved the price 26 points — are explicitly
+excluded.
+
+### Read the resolution text, not the title
+
+The sharpest thing found in this round is not a mispricing but a trap, on the
+Russian legislative election resolving in three days:
+
+| market | price | 24h volume |
+|---|---|---|
+| United Russia **gain** the most seats | 0.735 | $823,054 |
+| United Russia **win** the most seats | 0.991 | $31,462 |
+
+Nearly the same sentence, 26 points apart — and both correct. "Win" resolves on
+plurality, which United Russia has never lost. "Gain" resolves on seats *"compared
+to before the election"*: the largest **net increase**, which a party holding 326
+of 450 seats can easily lose to a small party growing from a low base. New People
+is 0.225 to gain the most and 0.003 to win the most, for the same reason.
+
+The market with the misleading title carries **26× the volume** of the clear one.
+
+Deriving "gain the most" from the platform's own per-party seat-count markets
+was inconclusive: the answer swings between 0.002 and 0.353 depending purely on
+how wide the open-ended buckets ("fewer than 280", "355 or more") are assumed to
+be. `gains.py` runs that sensitivity sweep and reports the instability rather
+than picking a flattering assumption.
+
+### What the semantic screen actually found
+
+Nothing tradable — but the reasons are the useful part. Of the pairs it surfaced:
+
+- Most were **polarity flips**: "most seats" vs "second-most seats" differ by one
+  token and mean opposite things.
+- Many were **complements** whose prices sum to ~1.00 — correct pricing, not a gap.
+- The rest were **same template, different entity**: "Lula wins Bahia" vs "Lula
+  wins Pernambuco", "OpenAI hits $1.75T" vs "Anthropic hits $1.5T".
+
+Where markets genuinely nest, the ordering held: "next Gemini Pro released **by**
+September 30" at 0.170 against "**on** September 30" at 0.032.
