@@ -193,3 +193,61 @@ Nothing tradable — but the reasons are the useful part. Of the pairs it surfac
 
 Where markets genuinely nest, the ordering held: "next Gemini Pro released **by**
 September 30" at 0.170 against "**on** September 30" at 0.032.
+
+### Verification results: 77 agents, zero surviving edges
+
+Two adversarial workflows ran over this universe — 26 shortlisted positions
+researched individually, and a 9-domain news sweep — each finding checked by
+independent agents told to refute it.
+
+| | candidates | survived |
+|---|---|---|
+| shortlisted positions | 26 researched (4 claimed edge, 17 fair, 5 avoid) | **0** |
+| news-staleness findings | 10 across 9 domains | **0** |
+| verification votes | 42 | 42 refuted |
+
+The refutations were substantive rather than reflexive, and three themes recur.
+
+**The market had already repriced.** The most common failure. On "Russia-Ukraine
+peace talks by October 31", an analyst argued traders were anchored and had not
+marked the Peskov/Lavrov headlines. A verifier pulled the CLOB price history:
+the Yes token went 0.440 → 0.530 over 27 hours on exactly those headlines, then
+faded to 0.485. The market had marked the news within hours, bid it up, and
+rejected it. "Unmoved" was an artifact of reading a single snapshot instead of
+the tape.
+
+**The entry price did not exist.** Several findings quoted a price between the
+bid and the ask. Tick size on these markets is a full cent, so a derived mid of
+0.9428 is not takeable — the live ask was 0.95, and on a 5.5-cent tail a
+one-cent spread is roughly 18% of the contract's value. Checking the snapshot
+against the live book confirmed this is decay, not a calculation error: the
+0.94 level had 3,238 shares (~$3,044) when sampled and was gone within hours.
+**Six of the 26 quoted entries had already moved against us about two hours
+after sampling.**
+
+**The resolution text was truncated.** Descriptions were cut to 1,800 characters
+when building the research input, and in at least two cases the missing half was
+decisive. On the Iran blockade market the omitted clause reads: *"Once a
+qualifying announcement is made, this market will resolve to 'Yes' regardless of
+whether it is later reversed."* Combined with a trigger set including
+"suspension", that converts a policy-change hazard into an utterance hazard —
+a much fatter tail, and one that inverted the trade. A data-prep shortcut, caught
+only because the verifier went back to the source.
+
+### A caution about news agents
+
+On the Middle East the agents contradicted each other outright. The domain
+reporter found continued escalation (Houthi offensive, Iran striking ten ships
+on 9 Sep) and returned zero findings; a verifier on a different market asserted
+a ceasefire had held since ~9-10 Sep with a framework deal circulating.
+Independent searches could not confirm the second account. In a fast-moving
+conflict these summaries are not reliable enough to trade on without going to
+primary sources, and the disagreement itself is the useful signal.
+
+Two details worth keeping, both of which *explain* prices rather than beat them:
+the CLARITY Act cloture failed 49-50 with Tillis switching to "no" and
+immediately filing a motion to reconsider — which keeps the bill technically
+alive and is why "signed into law in 2026" sits at 0.0645 rather than near zero;
+and the FOMC raised 25bp to 3.75-4.00% on 16 Sep, 12-0. That last one lands
+directly on the Fed markets flagged above for liquidity-reward farming, where a
+major scheduled event is exactly when a two-sided quote gets run over.
